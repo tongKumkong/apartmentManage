@@ -12,6 +12,7 @@
 
 import jsonpatch from 'fast-json-patch';
 import Building from './building.model';
+import mongoose from 'mongoose';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -80,16 +81,9 @@ export function show(req, res) {
 
 export function getMine(req, res) {
   
-  console.log(req);
-  console.log("user id is");
   var userId = mongoose.Types.ObjectId(req.user._id); ;
 
-  console.log("user id is");
-  
-  console.log(userId);
-  
-  return Building.find({ owner: userId }).exec()
-    .then(handleEntityNotFound(res))
+  return Building.find({owner: userId}).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

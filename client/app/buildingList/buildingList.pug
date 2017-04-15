@@ -1,3 +1,13 @@
 .container
-    .div(ng-repeat='building in $ctrl.buildings')
-        | {{building.name}}
+    .md-display-3(layout="row" layout-align="center center")
+        | Building List
+
+    br
+    md-grid-list(md-cols-xs="4" md-cols-sm="4" md-cols-md="4" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="8px" md-gutter-gt-sm="8px")
+        md-grid-tile.green(ng-repeat='building in buildingListCtrl.buildings')
+            md-grid-tile-footer(layout="row" layout-align="center center")
+                | {{building.name}}
+    br
+
+    button.md-fab.md-fab-bottom-right.md-button
+        ng-md-icon(icon="add_location" style="fill: white" size="54" flex layout="row" layout-align="center center")

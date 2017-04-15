@@ -9,9 +9,9 @@ export class BuildingListComponent {
   $http;
   scope;
   socket;
-  buildings;
+  buildings = [];
   message;
-  userData : Function;
+  userData: Function;
 
   /*@ngInject*/
   constructor($http, $scope, socket, Auth, User) {
@@ -20,12 +20,15 @@ export class BuildingListComponent {
     this.message = 'Hello';
     this.userData = Auth.getCurrentUser;
 
-      this.$http.get('api/buildings/mine').then(list => {
-        this.buildings = list.data;
-      })
-
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
       socket.unsyncUpdates('building');
+    });
+  }
+
+  $onInit() {
+    this.$http.get('api/buildings/mine').then(response => {
+      this.buildings = response.data;
+      this.socket.syncUpdates('buildings', this.buildings);
     });
   }
 }
