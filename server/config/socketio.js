@@ -16,6 +16,12 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/history-water/history-water.socket').register(socket);
+  require('../api/history-electric/history-electric.socket').register(socket);
+  require('../api/reader/reader.socket').register(socket);
+  require('../api/command/command.socket').register(socket);
+  require('../api/room/room.socket').register(socket);
+  require('../api/building/building.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
 }
 
