@@ -13,7 +13,11 @@ var RoomSchema = new mongoose.Schema({
             required: true
       },
       electricReader: { type: mongoose.Schema.Types.ObjectId, ref: 'Reader' },
-      waterReader: { type: mongoose.Schema.Types.ObjectId, ref: 'Reader' }
+      waterReader: { type: mongoose.Schema.Types.ObjectId, ref: 'Reader' },
+      status: {
+            type: Number,
+            required: true
+      }
 });
 
 registerEvents(RoomSchema);

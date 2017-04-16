@@ -38,7 +38,7 @@ export class RoomsComponent {
       locals: {
         building: this.building
       },
-      parent: angular.element(document.body),
+      parent: angular.element(document.querySelector('ui-view')),
       targetEvent: ev,
       clickOutsideToClose: true,
       fullscreen: false
@@ -49,12 +49,15 @@ export class RoomsComponent {
     });
   }
 
-  goToRoom(room, ev) {
+  goToRoom(roomSelect, ev) {
     this.$mdDialog.show({
-      controller: roomDeatailDialogController,
-      controllerAs: 'roomDeatailDialogCtrl',
-      template: require('./roomDeatailDialog.pug'),
-      parent: angular.element(document.body),
+      controller: roomDetailsDialogController,
+      controllerAs: 'roomDetailsDialogCtrl',
+      template: require('./roomDetailsDialog.pug'),
+      locals: {
+        room: roomSelect
+      },
+      parent: angular.element(document.querySelector('ui-view')),
       targetEvent: ev,
       clickOutsideToClose: true,
       fullscreen: true
@@ -73,9 +76,28 @@ export default angular.module('apartmentManageApp.rooms', [uiRouter])
   })
   .name;
 
-class roomDeatailDialogController {
+class roomDetailsDialogController {
+  room;
+  $mdDialog;
+  $http;
+  constructor($mdDialog, $http, room) {
+    this.$mdDialog = $mdDialog;
+    this.$http = $http;
+    this.room = room;
+  }
 
+  cancel() {
+    this.$mdDialog.cancel();
+  }
+  
 }
+
+angular.module('apartmentManageApp.roomDetailsDialogController', [])
+  .component('roomDetailsDialogController', {
+    template: require('./roomDetailsDialog.pug'),
+    controller: roomDetailsDialogController,
+    controllerAs: 'roomDetailsCtrl'
+  });
 
 class addRoomDialogController {
   $mdDialog;

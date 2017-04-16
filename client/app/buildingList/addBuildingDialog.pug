@@ -1,9 +1,10 @@
 md-dialog(aria-label="Add building")
-    .md-toolbar-tools
-        h2 Add building
-        span(flex)
-        md-button.md-icon-button(ng-click="addBuildingDialogCtrl.cancel()")
-            ng-md-icon(icon="close")
+    md-toolbar
+        .md-toolbar-tools
+            h2 Add building
+            span(flex)
+            md-button.md-icon-button(ng-click="addBuildingDialogCtrl.cancel()")
+                ng-md-icon(icon="close" style="fill:white")
     md-dialog-content.md-dialog-content
         form(ng-cloak ng-submit='addBuildingDialogCtrl.add(form)' name='form')
             md-input-container.md-block(flex-gt-sm)

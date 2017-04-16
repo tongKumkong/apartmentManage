@@ -53,7 +53,7 @@ angular.module('apartmentManageApp', [
   util
 ])
   .config(routeConfig)
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($rootScope, $location, $mdDialog, Auth) {
     'ngInject';
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
@@ -62,6 +62,7 @@ angular.module('apartmentManageApp', [
           $location.path('/login');
         }
       });
+      $mdDialog.cancel();
     });
   });
 

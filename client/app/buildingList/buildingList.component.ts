@@ -32,7 +32,7 @@ export class BuildingListComponent {
       controller: addBuildingDialogController,
       controllerAs: 'addBuildingDialogCtrl',
       template: require('./addBuildingDialog.pug'),
-      parent: angular.element(document.body),
+      parent: angular.element(document.querySelector('ui-view')),
       targetEvent: ev,
       clickOutsideToClose: true,
       fullscreen: false

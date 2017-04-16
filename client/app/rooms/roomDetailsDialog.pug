@@ -1,0 +1,34 @@
+md-dialog(aria-lable="room details")
+    form
+        md-toolbar
+            .md-toolbar-tools
+                h2 Room {{roomDetailsDialogCtrl.room.name}} details
+                span(flex)
+                md-button.md-icon-button(ng-click="roomDetailsDialogCtrl.cancel()")
+                    ng-md-icon(icon="close" style="fill:white")
+        md-dialog-content
+            md-tabs(md-dynamic-height md-border-bottom)
+                md-tab(label="one")
+                    md-content.md-padding
+                md-tab(label="setting")
+                    md-content.md-padding
+                        form(name="roomSetting" ng-submit='roomDetailsDialogCtrl.editDetails(roomSetting)')
+                            div(layout="column")
+                                p room status
+                                md-radio-group(ng-model="roomDetailsDialogCtrl.editRoom.status" layout="row")
+                                    md-radio-button(value="0") Available
+                                    md-radio-button(value="1") Occupied
+                                    md-radio-button(value="2") Reserved
+                                md-input-container
+                                    label name
+                                    input(ng-model="roomDetailsDialogCtrl.editRoom.name" required type="text")
+                                md-input-container
+                                    label barcode water reader
+                                    input(ng-model="roomDetailsDialogCtrl.editRoom.waterReader" type="text" pattern="[A-Za-z0-9]{16}")
+                                md-input-container
+                                    label barcode electric reader
+                                    input(ng-model="roomDetailsDialogCtrl.editRoom.electricReader" type="text" pattern="[A-Za-z0-9]{16}")
+                                div(layout="row" layout-align="center end")
+                                    md-button.md-raised.md-primary.md-block(type='submit' flex)
+                                        | SAVE
+                                

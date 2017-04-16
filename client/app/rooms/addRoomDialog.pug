@@ -1,9 +1,10 @@
 md-dialog(aria-label="Add room")
-    .md-toolbar-tools
-        h2 Add room to {{addRoomDialogCtrl.building.name}}
-        span(flex)
-        md-button.md-icon-button(ng-click="addRoomDialogCtrl.cancel()")
-            ng-md-icon(icon="close")
+    md-toolbar
+        .md-toolbar-tools
+            h2 Add room to {{addRoomDialogCtrl.building.name}}
+            span(flex)
+            md-button.md-icon-button(ng-click="addRoomDialogCtrl.cancel()")
+                ng-md-icon(icon="close" style="fill:white")
     md-dialog-content.md-dialog-content
         form(ng-cloak ng-submit='addRoomDialogCtrl.add(form)' name='form')
             md-input-container.md-block(flex-gt-sm)

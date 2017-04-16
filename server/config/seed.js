@@ -108,7 +108,8 @@ export default function seedDatabaseIfNeeded() {
               name: '201',
               building: buildingId,
               electricReader: readerId,
-              waterReader: readerId
+              waterReader: readerId,
+              status : 0
             })
               .then(() => {
                 Room.findOne({ name: '201' }, '+_id').then(room => {
