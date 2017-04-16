@@ -78,6 +78,11 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
+export function showByBuilding(req, res) {
+  return Room.find({building:req.params.id}).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
 // Creates a new Room in the DB
 export function create(req, res) {
   return Room.create(req.body)

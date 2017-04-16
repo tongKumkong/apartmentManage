@@ -7,18 +7,27 @@ export class MainController {
   socket;
   awesomeThings = [];
   newThing = '';
-
+  isAdmin: Function;
+  isLoggedIn: Function;
+  $state;
   /*@ngInject*/
-  constructor($http, $scope, socket) {
+  constructor($http, $scope, socket, Auth, $state) {
     this.$http = $http;
     this.socket = socket;
+    this.isLoggedIn = Auth.isLoggedInSync;
+    this.isAdmin = Auth.isAdminSync;
 
-    $scope.$on('$destroy', function() {
+    this.$state = $state;
+    $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
   }
 
   $onInit() {
+    if ((!this.isAdmin()) && this.isLoggedIn()) {
+      this.$state.go('buildingList');
+    }
+
     this.$http.get('/api/things').then(response => {
       this.awesomeThings = response.data;
       this.socket.syncUpdates('thing', this.awesomeThings);
@@ -39,9 +48,9 @@ export class MainController {
 
 export default angular.module('apartmentManageApp.main', [
   uiRouter])
-    .config(routing)
-    .component('main', {
-      template: require('./main.pug'),
-      controller: MainController
-    })
-    .name;
+  .config(routing)
+  .component('main', {
+    template: require('./main.pug'),
+    controller: MainController
+  })
+  .name;

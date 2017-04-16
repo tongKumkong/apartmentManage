@@ -81,7 +81,7 @@ export function show(req, res) {
 
 export function getMine(req, res) {
   
-  var userId = mongoose.Types.ObjectId(req.user._id); ;
+  var userId = mongoose.Types.ObjectId(req.user._id);
 
   return Building.find({owner: userId}).exec()
     .then(respondWithResult(res))
@@ -90,6 +90,13 @@ export function getMine(req, res) {
 // Creates a new Building in the DB
 export function create(req, res) {
   return Building.create(req.body)
+    .then(respondWithResult(res, 201))
+    .catch(handleError(res));
+}
+
+export function createOne(req,res) {  
+  var userId = mongoose.Types.ObjectId(req.user._id);
+  return Building.create({name:req.body.name,owner:userId})
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }

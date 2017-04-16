@@ -17,11 +17,15 @@ $icon-font-path = '../assets/fonts/bootstrap/'
   margin 0.2em 0
   padding 0.2em 0
 
+body
+    height: initial
+    position: relative
 // Component styles are injected through gulp
 /* inject:styl */
 @import 'admin/admin';
 @import 'buildingList/buildingList';
 @import 'main/main';
+@import 'rooms/rooms';
 @import '../components/footer/footer';
 @import '../components/modal/modal';
 /* endinject */

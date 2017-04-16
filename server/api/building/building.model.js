@@ -5,8 +5,12 @@ import {Schema} from 'mongoose';
 import {registerEvents} from './building.events';
 
 var BuildingSchema = new mongoose.Schema({
-  name: String,
-  owner: {type: Schema.Types.ObjectId, ref: 'User'}
+  name: {
+        type: String,
+        required: true
+        },
+  owner: {type: Schema.Types.ObjectId, ref: 'User',
+        required: true }
 });
 
 registerEvents(BuildingSchema);

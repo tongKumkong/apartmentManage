@@ -26,7 +26,7 @@ function registerEvents(Building) {
 
 function emitEvent(event) {
   return function(doc) {
-    BuildingEvents.emit(event + ':' + doc._id, doc);
+    BuildingEvents.emit(`${event}:${doc._id}`, doc);
     BuildingEvents.emit(event, doc);
   };
 }

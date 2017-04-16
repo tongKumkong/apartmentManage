@@ -1,0 +1,16 @@
+.container.buildingList
+    .md-display-3(layout="row" layout-align="center center")
+        | Rooms of {{roomsCtrl.building.name}}
+
+    br
+    md-grid-list(md-cols-xs="2" md-cols-sm="4" md-cols-md="4" md-cols-gt-md="4" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="8px" md-gutter-gt-sm="8px")
+        md-grid-tile.green(ng-repeat='room in roomsCtrl.rooms' ng-click="roomsCtrl.goToRoom(room,$even)")
+            div(layout="row" flex layout-align="end start")
+                button.md-button.md-fab.md-mini
+                    ng-md-icon(icon="delete_forever" style="fill: white" size="40" flex layout="row" layout-align="center center" ng-click="roomsCtrl.deleteRoomDialog(room)")
+            md-grid-tile-footer(layout="row" layout-align="center center")
+                | {{room.name}}
+    br
+
+    button.md-fab.md-fab-bottom-right.md-button.docs-scroll-fab
+        ng-md-icon(icon="add_location" style="fill: white" size="54" flex layout="row" layout-align="center center" ng-click="roomsCtrl.addRoomDialog($event)")

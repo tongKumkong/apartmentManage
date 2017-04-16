@@ -7,7 +7,10 @@ import {registerEvents} from './history-water.events';
 var HistoryWaterSchema = new mongoose.Schema({
   room: {type: Schema.Types.ObjectId, ref: 'Room'},
   dateWater: {type: Date},
-  unitWater: Number,
+  unitWater: {
+        type: Number,
+        required: true
+              },
   imageWater: String
 });
 
