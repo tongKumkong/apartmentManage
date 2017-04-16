@@ -4,7 +4,7 @@
 
 'use strict';
 
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 var ReaderEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
@@ -18,18 +18,18 @@ var events = {
 
 // Register the event emitter to the model events
 function registerEvents(Reader) {
-  for(var e in events) {
+  for (var e in events) {
     let event = events[e];
     Reader.post(e, emitEvent(event));
   }
 }
 
 function emitEvent(event) {
-  return function(doc) {
+  return function (doc) {
     ReaderEvents.emit(event + ':' + doc._id, doc);
     ReaderEvents.emit(event, doc);
   };
 }
 
-export {registerEvents};
+export { registerEvents };
 export default ReaderEvents;

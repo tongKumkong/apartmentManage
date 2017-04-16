@@ -1,14 +1,13 @@
 'use strict';
 
 import mongoose from 'mongoose';
-import {Schema} from 'mongoose';
-import {registerEvents} from './command.events';
+import { registerEvents } from './command.events';
 
 var CommandSchema = new mongoose.Schema({
-  reader: {type: Schema.Types.ObjectId, ref: 'Reader'},
-  room: {type: Schema.Types.ObjectId, ref: 'Room'},
+  reader: { type: mongoose.Schema.Types.ObjectId, ref: 'Reader' },
+  room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' },
   command: String,
-  date: {type: Date},
+  date: { type: Date },
   status: Boolean
 });
 
