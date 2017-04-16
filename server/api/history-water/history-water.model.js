@@ -10,7 +10,10 @@ var HistoryWaterSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  imageWater: String
+  image: {
+    data: Buffer,
+    contentType: String
+  }
 });
 
 registerEvents(HistoryWaterSchema);

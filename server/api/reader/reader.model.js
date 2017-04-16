@@ -10,7 +10,15 @@ var ReaderSchema = new mongoose.Schema({
   },
   statue: Boolean,
   readingArea: String,
-  tmpImage: String
+  command: {
+    name: String,
+    status: Number,
+    date: Date
+  },
+  image: {
+    data: Buffer,
+    contentType: String
+  }
 });
 
 registerEvents(ReaderSchema);

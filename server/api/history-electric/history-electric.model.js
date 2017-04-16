@@ -10,7 +10,10 @@ var HistoryElectricSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  imageElectric: String,
+  image: {
+    data: Buffer,
+    contentType: String
+  }
 });
 
 registerEvents(HistoryElectricSchema);
