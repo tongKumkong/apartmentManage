@@ -80,16 +80,20 @@ class roomDetailsDialogController {
   room;
   $mdDialog;
   $http;
+  editRoom;
   constructor($mdDialog, $http, room) {
     this.$mdDialog = $mdDialog;
     this.$http = $http;
     this.room = room;
+    this.room.waterImage = 'data:image/jpg;base64,' + room.waterReader.image.data
+    this.editRoom = room;
+    console.log(room);
   }
 
   cancel() {
     this.$mdDialog.cancel();
   }
-  
+
 }
 
 angular.module('apartmentManageApp.roomDetailsDialogController', [])

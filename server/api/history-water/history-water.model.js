@@ -5,7 +5,7 @@ import { registerEvents } from './history-water.events';
 
 var HistoryWaterSchema = new mongoose.Schema({
   room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' },
-  dateWater: { type: Date },
+  dateWater: { type: Date, default: Date.now },
   unitWater: {
     type: Number,
     required: true

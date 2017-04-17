@@ -13,7 +13,15 @@ import HistoryWater from '../api/history-water/history-water.model';
 import HistoryElectric from '../api/history-electric/history-electric.model';
 import Room from '../api/room/room.model';
 import Reader from '../api/reader/reader.model';
+
 var async = require("async");
+var fs = require('fs');
+var imgPath = './server/config/testImg.jpg';
+
+var testImg = {
+  data: fs.readFileSync(imgPath,{encoding:"base64"}),
+  contentType: 'image/jpg'
+}
 
 export default function seedDatabaseIfNeeded() {
   if (config.seedDB) {
@@ -91,7 +99,8 @@ export default function seedDatabaseIfNeeded() {
               barcode: '0013A200408D1BC1',
               status: true,
               readingArea: '',
-              tmpImage: ''
+              command: {name:'TAPI',status:0},
+              image: testImg
             })
               .then(() => {
                 Reader.findOne({ barcode: '0013A200408D1BC1' }, '+_id').then(reader => {
@@ -107,7 +116,6 @@ export default function seedDatabaseIfNeeded() {
             Room.create({
               name: '201',
               building: buildingId,
-              electricReader: readerId,
               waterReader: readerId,
               status : 0
             })

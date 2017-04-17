@@ -79,7 +79,10 @@ export function show(req, res) {
 }
 
 export function showByBuilding(req, res) {
-  return Room.find({ building: req.params.id }).exec()
+  return Room.find({ building: req.params.id })
+    .populate('electricReader')
+    .populate('waterReader')
+    .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

@@ -7,7 +7,7 @@ var CommandSchema = new mongoose.Schema({
   reader: { type: mongoose.Schema.Types.ObjectId, ref: 'Reader' },
   room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' },
   command: String,
-  date: { type: Date },
+  date: { type: Date, default: Date.now  },
   status: Boolean
 });
 

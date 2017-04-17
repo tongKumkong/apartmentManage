@@ -5,7 +5,7 @@ import { registerEvents } from './history-electric.events';
 
 var HistoryElectricSchema = new mongoose.Schema({
   room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' },
-  dateElectric: { type: Date },
+  dateElectric: { type: Date, default: Date.now  },
   unitElectric: {
     type: Number,
     required: true

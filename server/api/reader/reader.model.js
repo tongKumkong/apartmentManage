@@ -6,18 +6,20 @@ import { registerEvents } from './reader.events';
 var ReaderSchema = new mongoose.Schema({
   barcode: {
     type: String,
-    required: true
+    required: true,
+    uppercase: true
   },
   statue: Boolean,
   readingArea: String,
   command: {
     name: String,
     status: Number,
-    date: Date
+    date: {type:Date, default: Date.now }
   },
   image: {
-    data: Buffer,
-    contentType: String
+    data: String,
+    contentType: String,
+    time: {type:Date, default: Date.now }
   }
 });
 

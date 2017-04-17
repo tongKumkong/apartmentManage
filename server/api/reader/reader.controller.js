@@ -78,6 +78,20 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
+//Get command from a reader
+export function showCommand(req, res) {
+  Reader.find({ barcode: req.params.id })
+    .select('command')
+    .exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+export function saveImage(req,res) {
+  Reader.findOneAndUpdate({ barcode: req.params.id },{image: {data:req.body.image}},{ new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true }).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
 // Creates a new Reader in the DB
 export function create(req, res) {
   return Reader.create(req.body)
