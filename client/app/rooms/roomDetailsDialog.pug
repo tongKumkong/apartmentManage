@@ -15,10 +15,15 @@ md-dialog(aria-lable="room details")
                 md-tab(label="set reading area")
                     md-tabs(md-dynamic-height md-border-bottom)
                         md-tab(label="water meter reader")
-                            md-content.md-padding
-                                .cropArea
-                                    ui-cropper(image="roomDetailsDialogCtrl.room.waterImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropWidth,h:roomDetailsDialogCtrl.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.waterImageCropped" area-min-size="10")
-                                img(ng-src="{{roomDetailsDialogCtrl.waterImageCropped}}")
+                            md-content.md-padding(flex)
+                                .div(layout="row" layout-align="space-between center")
+                                    .cropArea(flex)
+                                        ui-cropper(image="roomDetailsDialogCtrl.room.waterImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropper.cropWidth,h:roomDetailsDialogCtrl.cropper.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.waterImageCropped" area-min-size="10")
+                                    img(ng-src="{{roomDetailsDialogCtrl.waterImageCropped}}")
+                                p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}
+                                div(layout="row" layout-align="center end")
+                                    md-button.md-raised.md-primary.md-block
+                                        | SAVE
                         md-tab(label="electricity meter reader")
                             md-content.md-padding
                                 img(ng-src="{{roomDetailsDialogCtrl.room.electImage}}")

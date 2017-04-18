@@ -16,7 +16,8 @@ var RoomSchema = new mongoose.Schema({
       waterReader: { type: mongoose.Schema.Types.ObjectId, ref: 'Reader' },
       status: {
             type: Number,
-            required: true
+            required: true,
+            default:0
       }
 });
 

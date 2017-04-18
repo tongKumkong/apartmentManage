@@ -80,9 +80,9 @@ class roomDetailsDialogController {
   $mdDialog;
   $http;
   editRoom;
-  rectangleWidth = 0;
-  rectangleHeight = 0;
-  waterImageCropped;
+  rectangleWidth = 50;
+  rectangleHeight = 50;
+  
   cropper = {
     cropWidth: this.rectangleWidth,
     cropHeight: this.rectangleHeight
@@ -92,10 +92,14 @@ class roomDetailsDialogController {
     this.$mdDialog = $mdDialog;
     this.$http = $http;
     this.room = room;
+    this.room.waterImage = new Image();
+    this.room.electImage = new Image();
     this.room.waterImage = (typeof room.waterReader != 'undefined') ? 'data:image/jpg;base64,' + room.waterReader.image.data : null;
     this.room.electImage = (typeof room.electricReader != 'undefined') ? 'data:image/jpg;base64,' + room.electricReader.image.data : null;
+
     this.editRoom = room;
-    console.log(room);
+    
+    
   }
 
   cancel() {

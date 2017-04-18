@@ -25,6 +25,7 @@ import RoomsComponent from './rooms/rooms.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
+
 import './app.styl';
 
 require('imports?this=>window,exports=>false,define=>false!ui-cropper');
