@@ -14,7 +14,6 @@ const ngAnimate = require('angular-animate');
 const ngMdIcons = require('angular-material-icons');
 
 import { routeConfig } from './app.config';
-
 import _Auth from '../components/auth/auth.module';
 import account from './account';
 import admin from './admin';
@@ -26,8 +25,9 @@ import RoomsComponent from './rooms/rooms.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
-
 import './app.styl';
+
+require('imports?this=>window,exports=>false,define=>false!ui-cropper');
 
 angular.module('apartmentManageApp', [
   ngCookies,
@@ -35,13 +35,13 @@ angular.module('apartmentManageApp', [
   ngSanitize,
   ngMaterial,
   ngMdIcons,
-
+  'uiCropper',
   'btford.socket-io',
 
   uiRouter,
   uiBootstrap,
-
   _Auth,
+  ,
   account,
   admin, navbar,
   footer,

@@ -13,8 +13,15 @@ md-dialog(aria-lable="room details")
                 md-tab(label="usage history")
                     md-content.md-padding
                 md-tab(label="set reading area")
-                    md-content.md-padding
-                        img(src="{{roomDetailsDialogCtrl.room.waterImage}}")
+                    md-tabs(md-dynamic-height md-border-bottom)
+                        md-tab(label="water meter reader")
+                            md-content.md-padding
+                                .cropArea
+                                    ui-cropper(image="roomDetailsDialogCtrl.room.waterImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropWidth,h:roomDetailsDialogCtrl.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.waterImageCropped" area-min-size="10")
+                                img(ng-src="{{roomDetailsDialogCtrl.waterImageCropped}}")
+                        md-tab(label="electricity meter reader")
+                            md-content.md-padding
+                                img(ng-src="{{roomDetailsDialogCtrl.room.electImage}}")
                 md-tab(label="setting")
                     md-content.md-padding
                         form(name="roomSetting" ng-submit='roomDetailsDialogCtrl.editDetails(roomSetting)')
