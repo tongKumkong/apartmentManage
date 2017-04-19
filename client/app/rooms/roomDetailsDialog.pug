@@ -9,12 +9,23 @@ md-dialog(aria-lable="room details")
         md-dialog-content
             md-tabs(md-dynamic-height md-border-bottom)
                 md-tab(label="add usage")
-                    md-content.md-padding
+                    form(name="mannualAddReading")
                         div(layout="row" layout-align="end center")
                             md-datepicker(ng-model="roomDetailsDialogCtrl.manualRead.data" md-placeholder="Enter reading date")
-                        div(layout="column")
+                        md-content.md-padding
+                            div(layout="column")
+                                md-input-container
+                                    label water
+                                    input(ng-model="roomDetailsDialogCtrl.manualRead.waterUnit" required type="number" min="0")
+                                md-input-container
+                                    label electric
+                                    input(ng-model="roomDetailsDialogCtrl.manualRead.electricUnit" required type="number" min="0")
+                            div(layout="row" layout-align="center end")
+                                md-button.md-raised.md-primary.md-block(type='submit' flex)
+                                    | SAVE
                 md-tab(label="usage history")
                     md-content.md-padding
+
                 md-tab(label="set reading area")
                     md-tabs(md-dynamic-height md-border-bottom)
                         md-tab(label="water meter reader")
@@ -25,11 +36,18 @@ md-dialog(aria-lable="room details")
                                     img(ng-src="{{roomDetailsDialogCtrl.waterImageCropped}}")
                                 p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}
                                 div(layout="row" layout-align="center end")
-                                    md-button.md-raised.md-primary.md-block
+                                    md-button.md-raised.md-primary.md-block(flex)
                                         | SAVE
                         md-tab(label="electricity meter reader")
                             md-content.md-padding
-                                img(ng-src="{{roomDetailsDialogCtrl.room.electImage}}")
+                                div(layout="row" layout-align="space-between center")
+                                    .cropArea(flex)
+                                        ui-cropper(image="roomDetailsDialogCtrl.room.electImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropper.cropWidth,h:roomDetailsDialogCtrl.cropper.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.electImageCropped" area-min-size="10")
+                                    img(ng-src="{{roomDetailsDialogCtrl.electImageCropped}}")
+                                p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}
+                                div(layout="row" layout-align="center end")
+                                    md-button.md-raised.md-primary.md-block(flex)
+                                        | SAVE
                 md-tab(label="setting")
                     md-content.md-padding
                         form(name="roomSetting" ng-submit='roomDetailsDialogCtrl.editDetails(roomSetting)')
