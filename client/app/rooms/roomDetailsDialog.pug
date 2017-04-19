@@ -11,7 +11,7 @@ md-dialog(aria-lable="room details")
                 md-tab(label="add usage")
                     form(name="mannualAddReading")
                         div(layout="row" layout-align="end center")
-                            md-datepicker(ng-model="roomDetailsDialogCtrl.manualRead.data" md-placeholder="Enter reading date")
+                            md-datepicker(ng-model="roomDetailsDialogCtrl.manualRead.data" md-placeholder="Reading date")
                         md-content.md-padding
                             div(layout="column")
                                 md-input-container
@@ -25,7 +25,41 @@ md-dialog(aria-lable="room details")
                                     | SAVE
                 md-tab(label="usage history")
                     md-content.md-padding
-
+                        md-tabs(md-dynamic-height md-border-bottom)
+                            md-tab(label="water")
+                                md-table-container
+                                    table(md-table ng-model="roomDetailsDialogCtrl.histrory.water")
+                                        thead(md-head)
+                                            tr(md-row)
+                                                th(md-column md-order-by="histrory.date")
+                                                    span
+                                                        | date
+                                                th(md-column)
+                                                    | usage unit
+                                                th(md-column)
+                                                    | image
+                                        tbody(md-body)
+                                            tr(md-row ng-repeat="histrory in roomDetailsDialogCtrl.histrory.water")
+                                                td(md-cell) {{histrory.date}}
+                                                td(md-cell) {{histrory.unit}}
+                                                td(md-cell) {{histrory.image}}
+                            md-tab(label="electricity")
+                                md-table-container
+                                    table(md-table ng-model="roomDetailsDialogCtrl.histrory.electricity")
+                                        thead(md-head)
+                                            tr(md-row)
+                                                th(md-column md-order-by="roomDetailsDialogCtrl.histrory.electricity.date")
+                                                    span 
+                                                        | date
+                                                th(md-column)
+                                                    | usage unit
+                                                th(md-column)
+                                                    | image
+                                        tbody(md-body)
+                                            tr(md-row ng-repeat="histrory in roomDetailsDialogCtrl.histrory.electricity")
+                                                td(md-cell) {{histrory.date}}
+                                                td(md-cell) {{histrory.unit}}
+                                                td(md-cell) {{histrory.image}}
                 md-tab(label="set reading area")
                     md-tabs(md-dynamic-height md-border-bottom)
                         md-tab(label="water meter reader")

@@ -30,6 +30,7 @@ import './app.styl';
 
 require('imports?this=>window,exports=>false,define=>false!ui-cropper');
 require('angular-material-data-table');
+require('ng-material-datetimepicker');
 
 angular.module('apartmentManageApp', [
   ngCookies,
@@ -37,6 +38,7 @@ angular.module('apartmentManageApp', [
   ngSanitize,
   ngMaterial,
   ngMdIcons,
+  'ngMaterialDatePicker',
   'uiCropper',
   'md.data.table',
   'btford.socket-io',
