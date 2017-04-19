@@ -8,15 +8,18 @@ md-dialog(aria-lable="room details")
                     ng-md-icon(icon="close" style="fill:white")
         md-dialog-content
             md-tabs(md-dynamic-height md-border-bottom)
-                md-tab(label="reader control")
+                md-tab(label="add usage")
                     md-content.md-padding
+                        div(layout="row" layout-align="end center")
+                            md-datepicker(ng-model="roomDetailsDialogCtrl.manualRead.data" md-placeholder="Enter reading date")
+                        div(layout="column")
                 md-tab(label="usage history")
                     md-content.md-padding
                 md-tab(label="set reading area")
                     md-tabs(md-dynamic-height md-border-bottom)
                         md-tab(label="water meter reader")
                             md-content.md-padding(flex)
-                                .div(layout="row" layout-align="space-between center")
+                                div(layout="row" layout-align="space-between center")
                                     .cropArea(flex)
                                         ui-cropper(image="roomDetailsDialogCtrl.room.waterImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropper.cropWidth,h:roomDetailsDialogCtrl.cropper.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.waterImageCropped" area-min-size="10")
                                     img(ng-src="{{roomDetailsDialogCtrl.waterImageCropped}}")
@@ -45,6 +48,12 @@ md-dialog(aria-lable="room details")
                                 md-input-container
                                     label barcode electric reader
                                     input(ng-model="roomDetailsDialogCtrl.editRoom.electricReader.barcode" type="text" pattern="[A-Za-z0-9]{16}")
+
+                                md-switch(ng-model="roomDetailsDialogCtrl.readingControl.autoReading")
+                                    | auto capture image every 6 hrs.
+                                md-switch(ng-model="roomDetailsDialogCtrl.readingControl.ocr")
+                                    | read number automatically
+
                                 div(layout="row" layout-align="center end")
                                     md-button.md-raised.md-primary.md-block(type='submit' flex)
                                         | SAVE
