@@ -26,9 +26,9 @@ md-dialog(aria-lable="room details")
                 md-tab(label="usage history")
                     md-content.md-padding
                         md-tabs(md-dynamic-height md-border-bottom)
-                            md-tab(label="water")
+                            md-tab(label="water" ng-click="roomDetailsDialogCtrl.getWaterHistrory")
                                 md-table-container
-                                    table(md-table ng-model="roomDetailsDialogCtrl.histrory.water")
+                                    table(md-table)
                                         thead(md-head)
                                             tr(md-row)
                                                 th(md-column md-order-by="histrory.date")
@@ -45,7 +45,7 @@ md-dialog(aria-lable="room details")
                                                 td(md-cell) {{histrory.image}}
                             md-tab(label="electricity")
                                 md-table-container
-                                    table(md-table ng-model="roomDetailsDialogCtrl.histrory.electricity")
+                                    table(md-table)
                                         thead(md-head)
                                             tr(md-row)
                                                 th(md-column md-order-by="roomDetailsDialogCtrl.histrory.electricity.date")
@@ -65,17 +65,17 @@ md-dialog(aria-lable="room details")
                         md-tab(label="water meter reader")
                             md-content.md-padding(flex)
                                 div(layout="row" layout-align="space-between center")
-                                    .cropArea(flex)
+                                    .cropArea(style="width:{{roomDetailsDialogCtrl.room.waterReader.image.width}}px;height:{{roomDetailsDialogCtrl.room.waterReader.image.height}}px")
                                         ui-cropper(image="roomDetailsDialogCtrl.room.waterImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropper.cropWidth,h:roomDetailsDialogCtrl.cropper.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.waterImageCropped" area-min-size="10")
                                     img(ng-src="{{roomDetailsDialogCtrl.waterImageCropped}}")
                                 p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}
                                 div(layout="row" layout-align="center end")
-                                    md-button.md-raised.md-primary.md-block(flex)
+                                    md-button.md-raised.md-primary.md-block(flex ng-click="roomDetailsDialogCtrl.saveWaterReadArea(roomDetailsDialogCtrl.cropper.cropTop, roomDetailsDialogCtrl.cropper.cropLeft, roomDetailsDialogCtrl.cropper.cropWidth, roomDetailsDialogCtrl.cropper.cropHeight)")
                                         | SAVE
                         md-tab(label="electricity meter reader")
                             md-content.md-padding
                                 div(layout="row" layout-align="space-between center")
-                                    .cropArea(flex)
+                                    .cropArea(ng-style="{width:roomDetailsDialogCtrl.room.electricReader.image.width;height:roomDetailsDialogCtrl.room.electricReader.image.height}")
                                         ui-cropper(image="roomDetailsDialogCtrl.room.electImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropper.cropWidth,h:roomDetailsDialogCtrl.cropper.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.electImageCropped" area-min-size="10")
                                     img(ng-src="{{roomDetailsDialogCtrl.electImageCropped}}")
                                 p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}

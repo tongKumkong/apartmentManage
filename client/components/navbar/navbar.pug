@@ -12,6 +12,9 @@ div.navbar.navbar-default.navbar-static-top
       ul.nav.navbar-nav
         li(ng-repeat='item in $ctrl.menu', ui-sref-active='active')
           a(ui-sref='{{item.state}}') {{item.title}}
+        
+        li(ng-show='$ctrl.isLoggedIn() && !$ctrl.isAdmin()', ui-sref-active='active')
+          a(ui-sref='signup') Generate Bill
 
         li(ng-show='$ctrl.isAdmin()', ui-sref-active='active')
           a(ui-sref='admin') Admin

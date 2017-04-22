@@ -20,7 +20,9 @@ var imgPath = './server/config/testImg.jpg';
 
 var testImg = {
   data: fs.readFileSync(imgPath,{encoding:"base64"}),
-  contentType: 'image/jpg'
+  contentType: 'image/jpg',
+  width: 320,
+  height: 240
 }
 
 export default function seedDatabaseIfNeeded() {
@@ -127,7 +129,7 @@ export default function seedDatabaseIfNeeded() {
               })
           })
       },
-      function (userId, buildingId,roomId, readerId, callback) {
+      function (userId, buildingId, readerId, roomId, callback) {
         Command.find({}).remove()
           .then(() => {
             Command.create({
@@ -147,10 +149,25 @@ export default function seedDatabaseIfNeeded() {
           .then(() => {
               HistoryElectric.create({
               room: roomId,
-              dateElectric: '2017-01-30T23:01:00',
-              unitElectric: '332',
-              imageElectric: ''
-            })
+              date: '2016-12-27T23:58:30',
+              unit: '154'
+            },
+            {
+              room: roomId,
+              date: '2017-01-30T23:59:00',
+              unit: '332'
+            },
+            {
+              room: roomId,
+              date: '2017-02-28T23:56:00',
+              unit: '456'
+            },
+            {
+              room: roomId,
+              date: '2017-03-31T23:58:00',
+              unit: '651'
+            }
+            )
               .then(() => {
                 callback(null, userId, buildingId, readerId, roomId );
               })
@@ -162,10 +179,25 @@ export default function seedDatabaseIfNeeded() {
           .then(() => {
               HistoryWater.create({
               room: roomId,
-              dateWater: '2017-01-30T23:05:00',
-              unitWater: '12',
-              imageWater: ''
-            })
+              date: '2016-12-27T23:58:00',
+              unit: '12',
+            },
+            {
+              room: roomId,
+              date: '2017-01-30T23:55:00',
+              unit: '21',
+            },
+            {
+              room: roomId,
+              date: '2017-02-28T23:58:00',
+              unit: '30',
+            },
+            {
+              room: roomId,
+              date: '2017-03-30T23:55:50',
+              unit: '36',
+            }
+            )
               .then(() => {
                 callback(null, userId, buildingId,readerId, roomId );
               })

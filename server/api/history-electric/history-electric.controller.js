@@ -78,6 +78,13 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
+//Gets a histoty by room id
+export function showByRoom(req, res) {
+  return HistoryElectric.find({room:req.params.id}).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
 // Creates a new HistoryElectric in the DB
 export function create(req, res) {
   return HistoryElectric.create(req.body)

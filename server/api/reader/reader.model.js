@@ -10,7 +10,6 @@ var ReaderSchema = new mongoose.Schema({
     uppercase: true
   },
   statue: Boolean,
-  readingArea: String,
   command: {
     name: String,
     status: Number,
@@ -18,8 +17,16 @@ var ReaderSchema = new mongoose.Schema({
   },
   image: {
     data: String,
+    width: Number,
+    height: Number,
     contentType: String,
     time: {type:Date, default: Date.now }
+  },
+  readingArea: {
+    x: Number,
+    y: Number,
+    w: Number,
+    h: Number
   }
 });
 

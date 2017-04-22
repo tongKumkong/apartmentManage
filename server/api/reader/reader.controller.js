@@ -88,7 +88,7 @@ export function showCommand(req, res) {
 }
 
 export function saveImage(req,res) {
-  Reader.findOneAndUpdate({ barcode: req.params.id },{image: {data:req.body.image}},{ new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true }).exec()
+  Reader.findOneAndUpdate({ barcode: req.params.id },{image: {data:req.body.image, width:req.body.width, height:req.body.height}},{ new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true }).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

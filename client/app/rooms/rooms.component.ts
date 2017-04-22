@@ -82,7 +82,11 @@ class roomDetailsDialogController {
   editRoom;
   rectangleWidth = 50;
   rectangleHeight = 50;
-  
+  histrory = {
+    water : null,
+    electricity : null
+  }
+
   cropper = {
     cropWidth: this.rectangleWidth,
     cropHeight: this.rectangleHeight
@@ -92,14 +96,33 @@ class roomDetailsDialogController {
     this.$mdDialog = $mdDialog;
     this.$http = $http;
     this.room = room;
+    console.log(room);
     this.room.waterImage = new Image();
     this.room.electImage = new Image();
     this.room.waterImage = (typeof room.waterReader != 'undefined') ? 'data:image/jpg;base64,' + room.waterReader.image.data : null;
     this.room.electImage = (typeof room.electricReader != 'undefined') ? 'data:image/jpg;base64,' + room.electricReader.image.data : null;
-
     this.editRoom = room;
-    
-    
+
+    this.$http.get('api/history-waters/room/'+this.room._id+'/').then(res => {
+      this.histrory.water = res.data;
+    });
+
+    this.$http.get('api/history-electrics/room/'+this.room._id+'/').then(res => {
+      this.histrory.electricity = res.data;
+    });
+  }
+
+  saveWaterReadArea(rX,rY,rW,rH) {
+    if(rX != null && rY != null && rW != null && rH != null) {
+      this.$http.put('/api/readers/'+this.room.waterReader._id,{
+        readingArea:{
+          x: rX,
+          y: rY,
+          w: rW,
+          h: rH
+        }
+      });
+    }
   }
 
   cancel() {

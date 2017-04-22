@@ -40,7 +40,6 @@ export class BuildingListComponent {
 
     this.$http.get('api/buildings/mine').then(response => {
       this.buildings = response.data;
-      this.socket.syncUpdates('building', this.buildings);
     });
   }
 

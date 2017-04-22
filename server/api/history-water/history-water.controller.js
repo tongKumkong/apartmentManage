@@ -78,6 +78,12 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
+//Gets a histoty by room id
+export function showByRoom(req, res) {
+  return HistoryWater.find({room:req.params.id}).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
 // Creates a new HistoryWater in the DB
 export function create(req, res) {
   return HistoryWater.create(req.body)
