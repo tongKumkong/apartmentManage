@@ -9,6 +9,7 @@ router.get('/', controller.index);
 router.get('/getCommand/:id', controller.showCommand);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
+router.post('/reading/:id',controller.saveReading);
 router.put('/image/:id',controller.saveImage);
 router.put('/:id', controller.upsert);
 router.patch('/:id', controller.patch);

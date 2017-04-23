@@ -9,7 +9,7 @@ var ReaderSchema = new mongoose.Schema({
     required: true,
     uppercase: true
   },
-  statue: Boolean,
+  status: {type:Boolean, default: false },
   command: {
     name: String,
     status: Number,

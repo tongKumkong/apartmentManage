@@ -20,8 +20,8 @@ div.navbar.navbar-default.navbar-static-top
           a(ui-sref='admin') Admin
 
       ul.nav.navbar-nav.navbar-right
-        li(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
-          a(ui-sref='signup') Sign up
+        li(ng-show='$ctrl.isAdmin()', ui-sref-active='active')
+          a(ui-sref='signup') Add new user
 
         li(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
           a(ui-sref='login') Login
