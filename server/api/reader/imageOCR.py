@@ -9,6 +9,10 @@ import json
 from io import BytesIO
 from cStringIO import StringIO
 
+#check if cropping area has been define
+if sys.argv[2] == 'null' or sys.argv[3] == 'null' or sys.argv[4] == 'null' or sys.argv[5] == 'null' :
+    exit(1)
+
 img = Image.open(BytesIO(base64.b64decode(sys.argv[1])))
 box = (float(sys.argv[2]), float(sys.argv[3]),float(sys.argv[4]) + float(sys.argv[2]),float(sys.argv[5]) + float(sys.argv[3])) 
 croppedImg = img.crop(box)
@@ -44,8 +48,10 @@ req_payload = {
 ret = requests.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCH1YPCOzXuS3co8e8VkpPKE4ZYsTaMfQc',json.dumps(req_payload),headers={'content-type': 'application/json'})
 
 retJson = ret.json()
-unit = retJson['responses'][0]['textAnnotations'][0]['description']
 
-#print readed number
-print int(filter(str.isdigit, unit))
-exit 0
+if hasattr(retJson['responses'][0], 'textAnnotations'):
+    unit = retJson['responses'][0]['textAnnotations'][0]['description']
+    #print readed number
+    print int(filter(str.isdigit, unit))
+
+exit(0)

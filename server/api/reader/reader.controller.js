@@ -18,6 +18,7 @@ import HistoryElectric from '../history-electric/history-electric.model'
 
 var fs = require('fs');
 var PythonShell = require('python-shell');
+var async = require("async");
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -93,24 +94,84 @@ export function showCommand(req, res) {
     .catch(handleError(res));
 }
 
-export function saveImage(req,res) {
+export function saveImage(req, res) {
 
-  readerInfo = Reader.find({ barcode: req.params.id }).exec();
-  RoomWaterReader = Room.find({waterReader:readerInfo._id}).select('_id').exec();
-  RoomElectricReader = Room.find({electricReader:readerInfo._id}).select('_id').exec();
+  async.waterfall([
+    function (callback) {
+      Reader.find({ barcode: req.params.id }).select('_id readingArea').then(res => {
+        callback(null, res);
+      });
+    },
+    function (readerInfo, callback) {
+      Room.find({ waterReader: readerInfo._id }).select('_id').then(res => {
+        callback(null, readerInfo, res);
+      });
+    },
+    function (readerInfo, RoomWaterReader, callback) {
+      Room.find({ electricReader: readerInfo._id }).select('_id').then(res => {
+        callback(null, readerInfo, RoomWaterReader, res);
+      });
+    },
+    function (readerInfo, RoomWaterReader, RoomElectricReader, callback) {
+      console.log(readerInfo[0]);
+      var readingArea = {
+        x: (typeof readerInfo[0].readingArea != 'undefined') ? readerInfo[0].readingArea.x : 'null',
+        y: (typeof readerInfo[0].readingArea != 'undefined') ? readerInfo[0].readingArea.y : 'null',
+        w: (typeof readerInfo[0].readingArea != 'undefined') ? readerInfo[0].readingArea.w : 'null',
+        h: (typeof readerInfo[0].readingArea != 'undefined') ? readerInfo[0].readingArea.h : 'null',
+      }
+      var option = {
+        mode: 'text',
+        scriptPath: '/home/tong/Desktop/apartmentManage-master/server/api/reader/',
+        args: [req.body.image, readingArea.y, readingArea.x, readingArea.w, readingArea.h]
+      }
 
-  console.log(readerInfo);
-  console.log(RoomWaterReader);
-  console.log(RoomElectricReader);
+      PythonShell.run('imageOCR.py', option, (err, results) => {
+        if (err) {
+          console.log(err);
+          console.log("error from python");
+          return;
+        }
 
-  var option = {
-    mode: 'text',
-    pythonPath: '/usr/lib/python2.7',
-    scriptPath: 'imageOCR.py',
-    args: ['']
-  }
+        console.log(results);
+        if (typeof RoomWaterReader[0] != 'undefined') {
+          if (results[1]) {
+            HistoryWater.create({
+              room: RoomWaterReader[0]._id, unit: results[1], image: {
+                data: results[0]
+              }
+            })
+          }
+          HistoryWater.create({
+            room: RoomWaterReader[0]._id, image: {
+              data: results[0]
+            }
+          })
+        }
 
-  return Reader.findOneAndUpdate({ barcode: req.params.id },{image: {data:req.body.image, width:req.body.width, height:req.body.height}},{ new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true }).exec()
+        if (typeof RoomElectricReader[0] != 'undefined') {
+          if (results[1]) {
+            HistoryElectric.create({
+              room: RoomElectricReader[0]._id, unit: results[1], image: {
+                data: results[0]
+              }
+            })
+          }
+          HistoryElectric.create({
+            room: RoomElectricReader[0]._id, image: {
+              data: results[0]
+            }
+          })
+        }
+      });
+
+      callback(null);
+    }
+  ]);
+
+
+
+  return Reader.findOneAndUpdate({ barcode: req.params.id }, { image: { data: req.body.image, width: req.body.width, height: req.body.height } }, { new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true }).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -120,7 +181,7 @@ export function create(req, res) {
   return Reader.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
-    
+
 }
 
 // Upserts the given Reader in the DB at the specified ID
