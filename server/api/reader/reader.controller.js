@@ -17,7 +17,7 @@ import HistoryWater from '../history-water/history-water.model'
 import HistoryElectric from '../history-electric/history-electric.model'
 
 var fs = require('fs');
-var exec = require('child_process').exec, child;
+var PythonShell = require('python-shell');
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -95,48 +95,32 @@ export function showCommand(req, res) {
 
 export function saveImage(req,res) {
 
-  var fileName = "/tmp/"+req.params.id+".jpg";
-  fs.writeFile(fileName,req.body.image, 'base64');
   readerInfo = Reader.find({ barcode: req.params.id }).exec();
+  RoomWaterReader = Room.find({waterReader:readerInfo._id}).select('_id').exec();
+  RoomElectricReader = Room.find({electricReader:readerInfo._id}).select('_id').exec();
 
-  child = exec('python /opt/imageOCR.py '+fileName+' '+readerInfo.readingArea.x+' '+readerInfo.readingArea.y+' '+readerInfo.readingArea.w+' '+readerInfo.readingArea.h);
-  child();
+  console.log(readerInfo);
+  console.log(RoomWaterReader);
+  console.log(RoomElectricReader);
+
+  var option = {
+    mode: 'text',
+    pythonPath: '/usr/lib/python2.7',
+    scriptPath: 'imageOCR.py',
+    args: ['']
+  }
 
   return Reader.findOneAndUpdate({ barcode: req.params.id },{image: {data:req.body.image, width:req.body.width, height:req.body.height}},{ new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true }).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-export function saveReading(req,res) {
-  readerInfo = Reader.find({ barcode: req.params.id }).exec();
-
-  RoomWaterReader = Room.find({waterReader:readerInfo._id}).select('_id').exec();
-  RoomElectricReader = Room.find({electricReader:readerInfo._id}).select('_id').exec();
-
-  if(RoomWaterReader) {
-    HistoryWater.create({
-      'room': RoomWaterReader,
-      'image': {
-        'data': req.body.image
-      },
-      'unit' : req.body.unit
-    });
-  }
-  if(RoomElectricReader) {
-    HistoryElectric.create({
-      'room': RoomElectricReader,
-      'image': {
-        'data': req.body.image
-      },
-      'unit' : req.body.unit
-    });
-  }
-}
 // Creates a new Reader in the DB
 export function create(req, res) {
   return Reader.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
+    
 }
 
 // Upserts the given Reader in the DB at the specified ID

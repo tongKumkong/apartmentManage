@@ -6,10 +6,11 @@ import sys
 import base64
 import requests
 import json
+from io import BytesIO
 from cStringIO import StringIO
 
-img = Image.open(sys.argv[1])
-box = (  float(sys.argv[2]), float(sys.argv[3]),float(sys.argv[4]) + float(sys.argv[2]),float(sys.argv[5]) + float(sys.argv[3])) 
+img = Image.open(BytesIO(base64.b64decode(sys.argv[1])))
+box = (float(sys.argv[2]), float(sys.argv[3]),float(sys.argv[4]) + float(sys.argv[2]),float(sys.argv[5]) + float(sys.argv[3])) 
 croppedImg = img.crop(box)
 
 img = ImageEnhance.Sharpness(img).enhance(2)
@@ -21,6 +22,9 @@ img.save(output, format='JPEG')
 
 im_data = output.getvalue()
 im_data_b64 = base64.b64encode(im_data)
+
+#print processes image data
+print im_data_b64
 
 req_payload = {
     "requests": [
@@ -42,9 +46,6 @@ ret = requests.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSy
 retJson = ret.json()
 unit = retJson['responses'][0]['textAnnotations'][0]['description']
 
-#save read number to history
-
-requests.post('http://127.0.0.1:3000/api/readers/reading/'+argv[6],{
-    "image": im_data_b64,
-    "unit": unit
-})
+#print readed number
+print int(filter(str.isdigit, unit))
+exit 0
