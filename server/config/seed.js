@@ -102,7 +102,13 @@ export default function seedDatabaseIfNeeded() {
               status: true,
               readingArea: '',
               command: {name:'TAPI',status:0},
-              image: testImg
+              image: testImg,
+              readingArea: {
+                x: 146,
+                y: 102,
+                w: 104,
+                h: 37
+              }
             })
               .then(() => {
                 Reader.findOne({ barcode: '0013A200408D1BC1' }, '+_id').then(reader => {

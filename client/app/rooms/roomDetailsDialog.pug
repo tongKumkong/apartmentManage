@@ -42,7 +42,8 @@ md-dialog(aria-lable="room details")
                                             tr(md-row ng-repeat="histrory in roomDetailsDialogCtrl.histrory.water")
                                                 td(md-cell) {{histrory.date}}
                                                 td(md-cell) {{histrory.unit}}
-                                                td(md-cell) {{histrory.image}}
+                                                td(md-cell) 
+                                                    img(ng-src="{{histrory.image.data}}")
                             md-tab(label="electricity")
                                 md-table-container
                                     table(md-table)
@@ -59,7 +60,8 @@ md-dialog(aria-lable="room details")
                                             tr(md-row ng-repeat="histrory in roomDetailsDialogCtrl.histrory.electricity")
                                                 td(md-cell) {{histrory.date}}
                                                 td(md-cell) {{histrory.unit}}
-                                                td(md-cell) {{histrory.image}}
+                                                td(md-cell)
+                                                    img(ng-src="{{histrory.image.data}}")
                 md-tab(label="set reading area")
                     md-tabs(md-dynamic-height md-border-bottom)
                         md-tab(label="water meter reader")

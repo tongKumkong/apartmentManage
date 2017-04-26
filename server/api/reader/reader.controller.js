@@ -104,16 +104,17 @@ export function saveImage(req, res) {
     },
     function (readerInfo, callback) {
       Room.find({ waterReader: readerInfo._id }).select('_id').then(res => {
+        console.log("water id "+res);
         callback(null, readerInfo, res);
       });
     },
     function (readerInfo, RoomWaterReader, callback) {
       Room.find({ electricReader: readerInfo._id }).select('_id').then(res => {
+        console.log("elec id "+res);
         callback(null, readerInfo, RoomWaterReader, res);
       });
     },
     function (readerInfo, RoomWaterReader, RoomElectricReader, callback) {
-      console.log(readerInfo[0]);
       var readingArea = {
         x: (typeof readerInfo[0].readingArea != 'undefined') ? readerInfo[0].readingArea.x : 'null',
         y: (typeof readerInfo[0].readingArea != 'undefined') ? readerInfo[0].readingArea.y : 'null',
@@ -133,7 +134,8 @@ export function saveImage(req, res) {
           return;
         }
 
-        console.log(results);
+        console.log("water id "+RoomWaterReader);
+        console.log("elec id "+RoomElectricReader);
         if (typeof RoomWaterReader[0] != 'undefined') {
           if (results[1]) {
             HistoryWater.create({
