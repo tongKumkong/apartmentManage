@@ -125,6 +125,19 @@ class roomDetailsDialogController {
     }
   }
 
+  saveElecReadArea(rX,rY,rW,rH) {
+    if(rX != null && rY != null && rW != null && rH != null) {
+      this.$http.put('/api/readers/'+this.room.electricReader._id,{
+        readingArea:{
+          x: rX,
+          y: rY,
+          w: rW,
+          h: rH
+        }
+      });
+    }
+  }
+
   cancel() {
     this.$mdDialog.cancel();
   }

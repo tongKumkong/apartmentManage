@@ -9,7 +9,7 @@ md-dialog(aria-lable="room details")
         md-dialog-content
             md-tabs(md-dynamic-height md-border-bottom)
                 md-tab(label="add usage")
-                    form(name="mannualAddReading")
+                    form(name="mannualAddReading" ng-submit='roomDetailsDialogCtrl.saveHistory(mannualAddReading)')
                         div(layout="row" layout-align="end center")
                             md-datepicker(ng-model="roomDetailsDialogCtrl.manualRead.data" md-placeholder="Reading date")
                         md-content.md-padding
@@ -26,7 +26,7 @@ md-dialog(aria-lable="room details")
                 md-tab(label="usage history")
                     md-content.md-padding
                         md-tabs(md-dynamic-height md-border-bottom)
-                            md-tab(label="water" ng-click="roomDetailsDialogCtrl.getWaterHistrory")
+                            md-tab(label="water")
                                 md-table-container
                                     table(md-table)
                                         thead(md-head)
@@ -40,7 +40,7 @@ md-dialog(aria-lable="room details")
                                                     | image
                                         tbody(md-body)
                                             tr(md-row ng-repeat="histrory in roomDetailsDialogCtrl.histrory.water")
-                                                td(md-cell) {{histrory.date}}
+                                                td(md-cell) {{histrory.date | date:'medium'}}
                                                 td(md-cell) {{histrory.unit}}
                                                 td(md-cell) 
                                                     img(ng-src="{{histrory.image.data}}")
@@ -49,7 +49,7 @@ md-dialog(aria-lable="room details")
                                     table(md-table)
                                         thead(md-head)
                                             tr(md-row)
-                                                th(md-column md-order-by="roomDetailsDialogCtrl.histrory.electricity.date")
+                                                th(md-column md-order-by="histrory.date")
                                                     span 
                                                         | date
                                                 th(md-column)
@@ -58,7 +58,7 @@ md-dialog(aria-lable="room details")
                                                     | image
                                         tbody(md-body)
                                             tr(md-row ng-repeat="histrory in roomDetailsDialogCtrl.histrory.electricity")
-                                                td(md-cell) {{histrory.date}}
+                                                td(md-cell) {{histrory.date | date:'medium'}}
                                                 td(md-cell) {{histrory.unit}}
                                                 td(md-cell)
                                                     img(ng-src="{{histrory.image.data}}")
@@ -66,33 +66,35 @@ md-dialog(aria-lable="room details")
                     md-tabs(md-dynamic-height md-border-bottom)
                         md-tab(label="water meter reader")
                             md-content.md-padding(flex)
+                                div(layout="row" layout-align="center center" ng-show="!roomDetailsDialogCtrl.room.waterReader") No image
                                 div(layout="row" layout-align="space-between center")
                                     .cropArea(style="width:{{roomDetailsDialogCtrl.room.waterReader.image.width}}px;height:{{roomDetailsDialogCtrl.room.waterReader.image.height}}px")
                                         ui-cropper(image="roomDetailsDialogCtrl.room.waterImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropper.cropWidth,h:roomDetailsDialogCtrl.cropper.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.waterImageCropped" area-min-size="10")
                                     img(ng-src="{{roomDetailsDialogCtrl.waterImageCropped}}")
-                                p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}
-                                div(layout="row" layout-align="center end")
+                                //p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}
+                                div(layout="row" layout-align="center end" ng-show="roomDetailsDialogCtrl.room.waterImage")
                                     md-button.md-raised.md-primary.md-block(flex ng-click="roomDetailsDialogCtrl.saveWaterReadArea(roomDetailsDialogCtrl.cropper.cropTop, roomDetailsDialogCtrl.cropper.cropLeft, roomDetailsDialogCtrl.cropper.cropWidth, roomDetailsDialogCtrl.cropper.cropHeight)")
                                         | SAVE
                         md-tab(label="electricity meter reader")
                             md-content.md-padding
+                                div(layout="row" layout-align="center center" ng-show="!roomDetailsDialogCtrl.room.electImage") No image
                                 div(layout="row" layout-align="space-between center")
-                                    .cropArea(ng-style="{width:roomDetailsDialogCtrl.room.electricReader.image.width;height:roomDetailsDialogCtrl.room.electricReader.image.height}")
+                                    .cropArea(style="width:{{roomDetailsDialogCtrl.room.electricReader.image.width}}px;height:{{roomDetailsDialogCtrl.room.electricReader.image.height}}px")
                                         ui-cropper(image="roomDetailsDialogCtrl.room.electImage" area-type="rectangle" area-init-size="{w:roomDetailsDialogCtrl.cropper.cropWidth,h:roomDetailsDialogCtrl.cropper.cropHeight}" cropject="roomDetailsDialogCtrl.cropper" result-image="roomDetailsDialogCtrl.electImageCropped" area-min-size="10")
                                     img(ng-src="{{roomDetailsDialogCtrl.electImageCropped}}")
-                                p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}
-                                div(layout="row" layout-align="center end")
-                                    md-button.md-raised.md-primary.md-block(flex)
+                                //p x {{roomDetailsDialogCtrl.cropper.cropTop}} y {{roomDetailsDialogCtrl.cropper.cropLeft}} w {{roomDetailsDialogCtrl.cropper.cropWidth}} h {{roomDetailsDialogCtrl.cropper.cropHeight}}
+                                div(layout="row" layout-align="center end" ng-show="roomDetailsDialogCtrl.room.electImage")
+                                    md-button.md-raised.md-primary.md-block(flex ng-click="roomDetailsDialogCtrl.saveElecReadArea(roomDetailsDialogCtrl.cropper.cropTop, roomDetailsDialogCtrl.cropper.cropLeft, roomDetailsDialogCtrl.cropper.cropWidth, roomDetailsDialogCtrl.cropper.cropHeight)")
                                         | SAVE
                 md-tab(label="setting")
                     md-content.md-padding
                         form(name="roomSetting" ng-submit='roomDetailsDialogCtrl.editDetails(roomSetting)')
                             div(layout="column")
-                                p room status
-                                md-radio-group(ng-model="roomDetailsDialogCtrl.editRoom.status" layout="row")
-                                    md-radio-button(value="0") Available
-                                    md-radio-button(value="1") Occupied
-                                    md-radio-button(value="2") Reserved
+                                //p room status
+                                //md-radio-group(ng-model="roomDetailsDialogCtrl.editRoom.status" layout="row")
+                                //    md-radio-button(value="0") Available
+                                //    md-radio-button(value="1") Occupied
+                                //    md-radio-button(value="2") Reserved
                                 md-input-container
                                     label name
                                     input(ng-model="roomDetailsDialogCtrl.editRoom.name" required type="text")
@@ -103,9 +105,9 @@ md-dialog(aria-lable="room details")
                                     label barcode electric reader
                                     input(ng-model="roomDetailsDialogCtrl.editRoom.electricReader.barcode" type="text" pattern="[A-Za-z0-9]{16}")
 
-                                md-switch(ng-model="roomDetailsDialogCtrl.readingControl.autoReading")
+                                //md-switch(ng-model="roomDetailsDialogCtrl.readingControl.autoReading")
                                     | auto capture image every 6 hrs.
-                                md-switch(ng-model="roomDetailsDialogCtrl.readingControl.ocr")
+                                //md-switch(ng-model="roomDetailsDialogCtrl.readingControl.ocr")
                                     | read number automatically
 
                                 div(layout="row" layout-align="center end")

@@ -22,6 +22,7 @@ import footer from '../components/footer/footer.component';
 import main from './main/main.component';
 import BuildingListComponent from './buildingList/buildingList.component';
 import RoomsComponent from './rooms/rooms.component';
+import GenerateBillComponent from './generateBill/generateBill.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
@@ -53,6 +54,7 @@ angular.module('apartmentManageApp', [
   main,
   BuildingListComponent,
   RoomsComponent,
+  GenerateBillComponent,
   constants,
   socket,
   util

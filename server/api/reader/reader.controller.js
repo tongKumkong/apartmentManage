@@ -123,7 +123,7 @@ export function saveImage(req, res) {
       }
       var option = {
         mode: 'text',
-        scriptPath: '/home/tong/Desktop/apartmentManage-master/server/api/reader/',
+        scriptPath: './',
         args: [req.body.image, readingArea.y, readingArea.x, readingArea.w, readingArea.h]
       }
 
