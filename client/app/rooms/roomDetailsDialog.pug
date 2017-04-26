@@ -43,7 +43,7 @@ md-dialog(aria-lable="room details")
                                                 td(md-cell) {{histrory.date | date:'medium'}}
                                                 td(md-cell) {{histrory.unit}}
                                                 td(md-cell) 
-                                                    img(ng-src="{{histrory.image.data}}")
+                                                    img(ng-src="data:image/jpg;base64,{{histrory.image.data}}")
                             md-tab(label="electricity")
                                 md-table-container
                                     table(md-table)
@@ -61,7 +61,7 @@ md-dialog(aria-lable="room details")
                                                 td(md-cell) {{histrory.date | date:'medium'}}
                                                 td(md-cell) {{histrory.unit}}
                                                 td(md-cell)
-                                                    img(ng-src="{{histrory.image.data}}")
+                                                    img(ng-src="data:image/jpg;base64,{{histrory.image.data}}")
                 md-tab(label="set reading area")
                     md-tabs(md-dynamic-height md-border-bottom)
                         md-tab(label="water meter reader")

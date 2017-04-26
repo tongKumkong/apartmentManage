@@ -8,7 +8,7 @@ var HistoryElectricSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now  },
   unit: Number,
   image: {
-    data: Buffer,
+    data: String,
     contentType: String
   }
 });

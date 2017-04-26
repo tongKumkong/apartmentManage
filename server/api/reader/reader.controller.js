@@ -103,13 +103,13 @@ export function saveImage(req, res) {
       });
     },
     function (readerInfo, callback) {
-      Room.find({ waterReader: readerInfo._id }).select('_id').then(res => {
+      Room.find({ waterReader: readerInfo[0]._id }).select('_id').then(res => {
         console.log("water id "+res);
         callback(null, readerInfo, res);
       });
     },
     function (readerInfo, RoomWaterReader, callback) {
-      Room.find({ electricReader: readerInfo._id }).select('_id').then(res => {
+      Room.find({ electricReader: readerInfo[0]._id }).select('_id').then(res => {
         console.log("elec id "+res);
         callback(null, readerInfo, RoomWaterReader, res);
       });
@@ -123,7 +123,7 @@ export function saveImage(req, res) {
       }
       var option = {
         mode: 'text',
-        scriptPath: './',
+        scriptPath: '/Users/DSS/Desktop/apartmentManage/server/api/reader/',
         args: [req.body.image, readingArea.y, readingArea.x, readingArea.w, readingArea.h]
       }
 
