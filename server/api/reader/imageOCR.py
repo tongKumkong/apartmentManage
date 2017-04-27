@@ -8,6 +8,7 @@ import requests
 import json
 from io import BytesIO
 from cStringIO import StringIO
+import re
 
 # check if cropping area has been define
 if sys.argv[2] == 'null' or sys.argv[3] == 'null' or sys.argv[4] == 'null' or sys.argv[5] == 'null':
@@ -50,9 +51,10 @@ ret = requests.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSy
 
 retJson = ret.json()
 
-if hasattr(retJson['responses'][0], 'textAnnotations'):
-    unit = retJson['responses'][0]['textAnnotations'][0]['description']
+if retJson['responses'][0]['textAnnotations'][0]['description']:
+    unit = re.findall(r'\b\d+\b', retJson['responses'][0]['textAnnotations'][0]['description'])
+    unit = ''.join(unit)
     # print readed number
-    print int(filter(str.isdigit, unit))
+    print int(unit)
 
 exit(0)
