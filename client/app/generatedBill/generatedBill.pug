@@ -1,1 +1,50 @@
-div This is the generatedBill view.
+md-tabs.container(md-dynamic-height)
+    md-tab(label="{{building.buildingName}}" ng-repeat='building in generatedBillCtrl.bills')
+        md-card(ng-repeat='room in building.rooms')
+            md-card-title
+                md-card-title-text
+                    span.md-headline room {{room.name}}
+                    span.md-subhead bill of {{generatedBillCtrl.info.startDate | date:'short'}} to {{generatedBillCtrl.info.endDate | date:'short'}}
+            md-card-content
+                table
+                    tr
+                        th Item
+                        th image
+                        th Unit Cost
+                        th Quantity
+                        th Price
+                    tr
+                        td rental
+                        td
+                        td {{generatedBillCtrl.info.roomPrice}}
+                        td 1
+                        td {{generatedBillCtrl.info.roomPrice}}
+                    tr
+                        td 
+                            textarea water from {{room.water.start.unit}} to {{room.water.end.unit}}
+                        td
+                            img(ng-src="data:image/jpg;base64,{{room.water.start.image.data}}")
+                            img(ng-src="data:image/jpg;base64,{{room.water.end.image.data}}")
+                        td {{generatedBillCtrl.info.waterPrice}}
+                        td 
+                            textarea {{room.water.end.unit - room.water.start.unit }}
+                        td 
+                            textarea {{(room.water.end.unit - room.water.start.unit) * generatedBillCtrl.info.waterPrice}}
+                    tr
+                        td 
+                            textarea electricity from {{room.electric.start.unit}} to {{room.electric.end.unit}}
+                        td
+                            img(ng-src="data:image/jpg;base64,{{room.electric.start.image.data}}")
+                            img(ng-src="data:image/jpg;base64,{{room.electric.end.image.data}}")
+                        td {{generatedBillCtrl.info.electricPrice}}
+                        td 
+                            textarea {{room.electric.end.unit - room.electric.start.unit }}
+                        td 
+                            textarea {{(room.electric.end.unit - room.electric.start.unit) * generatedBillCtrl.info.electricPrice}}
+                    tr
+                        td total
+                        td
+                        td
+                        td
+                        td 
+                            textarea {{generatedBillCtrl.info.roomPrice + ((room.electric.end.unit - room.electric.start.unit) * generatedBillCtrl.info.electricPrice) + ((room.water.end.unit - room.water.start.unit) * generatedBillCtrl.info.waterPrice)}}

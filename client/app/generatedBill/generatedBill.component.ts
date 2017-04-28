@@ -29,6 +29,7 @@ export class GeneratedBillComponent {
             buildingName: building.name,
             rooms: []
           }
+          this.bills.push(this.bills[building._id]);
           this.$http.get('/api/rooms/building/' + building._id).then(res => {
             res.data.forEach(room => {
               var billroom = {
@@ -43,14 +44,15 @@ export class GeneratedBillComponent {
                 }
               }
               this.$http.get('api/history-waters/room/' + room._id + '/date/' + this.info.startDate).then(res => {
-                billroom.water.start = res.data
+                billroom.water.start = res.data[0]
                 this.$http.get('api/history-waters/room/' + room._id + '/date/' + this.info.endDate).then(res => {
-                  billroom.water.end = res.data
+                  billroom.water.end = res.data[0]
                   this.$http.get('api/history-electrics/room/' + room._id + '/date/' + this.info.startDate).then(res => {
-                    billroom.electric.start = res.data
+                    billroom.electric.start = res.data[0]
                     this.$http.get('api/history-electrics/room/' + room._id + '/date/' + this.info.endDate).then(res => {
-                      billroom.electric.end = res.data
+                      billroom.electric.end = res.data[0]
                       this.bills[room.building].rooms.push(billroom);
+                      console.log(this.bills);
                     });
                   });
                 });
