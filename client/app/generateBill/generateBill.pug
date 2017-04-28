@@ -1,23 +1,24 @@
 .container
-    | 1. select start and end date
-    div(layout="row" layout-align="start center")  
-        md-datepicker(ng-model="generateBill.startDate" md-placeholder="start date")
-        span(flex="10" layout="row" layout-align="center center") 
-            | to
-        md-datepicker(ng-model="generateBill.endDate" md-placeholder="end date")
-    br
-    | 2. enter calculation details
-    md-input-container.md-block(flex)
-        label room price
-        input(ng-model="generateBill.roomPrice" required type="number" min="0")
-    div(layout="row" layout-align="start center")  
+    form(ng-submit='generateBillCtrl.goToGeneratedBills(form)' name="form")
+        | 1. select start and end date
+        div(layout="row" layout-align="start center")  
+            md-datepicker(ng-model="generateBillCtrl.startDate" md-placeholder="start date" required)
+            span(flex="10" layout="row" layout-align="center center") 
+                | to
+            md-datepicker(ng-model="generateBillCtrl.endDate" md-placeholder="end date" required)
+        br
+        | 2. enter calculation details
         md-input-container.md-block(flex)
-            label water price per unit
-            input(ng-model="generateBill.waterPrice" required type="number" min="0")
-        md-input-container.md-block(flex)
-            label electricity price per unit
-            input(ng-model="generateBill.electricPrice" required type="number" min="0")
-    br
-    div(layout="row" layout-align="center end")
-        md-button.md-raised.md-primary.md-block(type='submit' flex)
-            | GENERATE
+            label room price
+            input(ng-model="generateBillCtrl.roomPrice" required type="number" min="0")
+        div(layout="row" layout-align="start center")  
+            md-input-container.md-block(flex)
+                label water price per unit
+                input(ng-model="generateBillCtrl.waterPrice" required type="number" min="0")
+            md-input-container.md-block(flex)
+                label electricity price per unit
+                input(ng-model="generateBillCtrl.electricPrice" required type="number" min="0")
+        br
+        div(layout="row" layout-align="center end")
+            md-button.md-raised.md-primary.md-block(type='submit' flex)
+                | GENERATE

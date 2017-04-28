@@ -9,9 +9,9 @@ md-dialog(aria-lable="room details")
         md-dialog-content
             md-tabs(md-dynamic-height md-border-bottom)
                 md-tab(label="add usage")
-                    form(name="mannualAddReading" ng-submit='roomDetailsDialogCtrl.saveHistory(mannualAddReading)')
+                    form(name="mannualAddReading")
                         div(layout="row" layout-align="end center")
-                            md-datepicker(ng-model="roomDetailsDialogCtrl.manualRead.data" md-placeholder="Reading date")
+                            md-datepicker(ng-model="roomDetailsDialogCtrl.manualRead.data" md-placeholder="Reading date" required)
                         md-content.md-padding
                             div(layout="column")
                                 md-input-container
@@ -21,7 +21,7 @@ md-dialog(aria-lable="room details")
                                     label electric
                                     input(ng-model="roomDetailsDialogCtrl.manualRead.electricUnit" required type="number" min="0")
                             div(layout="row" layout-align="center end")
-                                md-button.md-raised.md-primary.md-block(type='submit' flex)
+                                md-button.md-raised.md-primary.md-block(type='submit' flex ng-click='roomDetailsDialogCtrl.saveHistory()')
                                     | SAVE
                 md-tab(label="usage history")
                     md-content.md-padding

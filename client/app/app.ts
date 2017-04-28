@@ -23,6 +23,7 @@ import main from './main/main.component';
 import BuildingListComponent from './buildingList/buildingList.component';
 import RoomsComponent from './rooms/rooms.component';
 import GenerateBillComponent from './generateBill/generateBill.component';
+import GeneratedBillComponent from './generatedBill/generatedBill.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 import socket from '../components/socket/socket.service';
@@ -55,6 +56,7 @@ angular.module('apartmentManageApp', [
   BuildingListComponent,
   RoomsComponent,
   GenerateBillComponent,
+  GeneratedBillComponent,
   constants,
   socket,
   util

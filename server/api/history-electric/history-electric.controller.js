@@ -85,6 +85,15 @@ export function showByRoom(req, res) {
     .catch(handleError(res));
 }
 
+//Gets a history by room id and nearest date
+export function showByRoomAndDate(req, res) {
+  var date = new Date(req.params.date);
+  return HistoryElectric.find({"room":req.params.id,"date":{$gte: date, $lt:date}})
+    .sort({"date":1}).limit(1).exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
 // Creates a new HistoryElectric in the DB
 export function create(req, res) {
   return HistoryElectric.create(req.body)

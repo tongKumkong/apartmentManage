@@ -100,7 +100,6 @@ export default function seedDatabaseIfNeeded() {
             Reader.create({
               barcode: '0013A200408D1BC1',
               status: true,
-              readingArea: '',
               command: {name:'TAPI',status:0},
               image: testImg,
               readingArea: {
@@ -155,22 +154,22 @@ export default function seedDatabaseIfNeeded() {
           .then(() => {
               HistoryElectric.create({
               room: roomId,
-              date: '2016-12-27T23:58:30',
+              date: new Date('2016-12-27T23:58:00'),
               unit: '154'
             },
             {
               room: roomId,
-              date: '2017-01-30T23:59:00',
+              date: new Date('2017-01-30T23:55:00'),
               unit: '332'
             },
             {
               room: roomId,
-              date: '2017-02-28T23:56:00',
+              date: new Date('Wed Mar 01 2017 00:00:00 GMT+0700 (SE Asia Standard Time)'),
               unit: '456'
             },
             {
               room: roomId,
-              date: '2017-03-31T23:58:00',
+              date: new Date('Wed Mar 31 2017 00:00:00 GMT+0700 (SE Asia Standard Time)'),
               unit: '651'
             }
             )
@@ -185,22 +184,22 @@ export default function seedDatabaseIfNeeded() {
           .then(() => {
               HistoryWater.create({
               room: roomId,
-              date: '2016-12-27T23:58:00',
+              date: new Date('2016-12-27T23:58:00'),
               unit: '12',
             },
             {
               room: roomId,
-              date: '2017-01-30T23:55:00',
+              date: new Date('2017-01-30T23:55:00'),
               unit: '21',
             },
             {
               room: roomId,
-              date: '2017-02-28T23:58:00',
+              date: new Date('Wed Mar 01 2017 00:00:00 GMT+0700 (SE Asia Standard Time)'),
               unit: '30',
             },
             {
               room: roomId,
-              date: '2017-03-30T23:55:50',
+              date: new Date('Wed Mar 31 2017 00:00:00 GMT+0700 (SE Asia Standard Time)'),
               unit: '36',
             }
             )

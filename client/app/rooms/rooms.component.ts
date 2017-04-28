@@ -92,6 +92,8 @@ class roomDetailsDialogController {
     cropHeight: this.rectangleHeight
   };
 
+  manualRead;
+
   constructor($mdDialog, $http, room) {
     this.$mdDialog = $mdDialog;
     this.$http = $http;
@@ -123,6 +125,19 @@ class roomDetailsDialogController {
         }
       });
     }
+  }
+
+  saveHistory() {
+      this.$http.post('/api/history-waters/',{
+        room: this.room._id,
+        date: this.manualRead.data,
+        unit: this.manualRead.waterUnit
+      });
+      this.$http.post('/api/history-electrics/',{
+        room: this.room._id,
+        date: this.manualRead.data,
+        unit: this.manualRead.electricUnit
+      });
   }
 
   saveElecReadArea(rX,rY,rW,rH) {

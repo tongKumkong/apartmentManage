@@ -7,8 +7,28 @@ import routes from './generateBill.routes';
 
 export class GenerateBillComponent {
   /*@ngInject*/
-  constructor() {
-    this.message = 'Hello';
+  $state;
+  startDate;
+  endDate;
+  roomPrice;
+  waterPrice;
+  electricPrice;
+  constructor($state) {
+    this.$state = $state;
+  }
+
+  goToGeneratedBills(form) {
+    if (form.$valid) {
+      this.$state.go('generatedBill', {
+        info: {
+          startDate: this.startDate,
+          endDate: this.endDate,
+          roomPrice: this.roomPrice,
+          waterPrice: this.waterPrice,
+          electricPrice: this.electricPrice
+        }
+      });
+    }
   }
 }
 
