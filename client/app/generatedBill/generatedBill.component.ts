@@ -43,7 +43,6 @@ export class GeneratedBillComponent {
                 }
               }
               this.$http.get('api/history-waters/room/' + room._id + '/date/' + this.info.startDate).then(res => {
-                console.log(res.data)
                 billroom.water.start = res.data
                 this.$http.get('api/history-waters/room/' + room._id + '/date/' + this.info.endDate).then(res => {
                   billroom.water.end = res.data
@@ -52,7 +51,6 @@ export class GeneratedBillComponent {
                     this.$http.get('api/history-electrics/room/' + room._id + '/date/' + this.info.endDate).then(res => {
                       billroom.electric.end = res.data
                       this.bills[room.building].rooms.push(billroom);
-                      console.log(this.bills);
                     });
                   });
                 });

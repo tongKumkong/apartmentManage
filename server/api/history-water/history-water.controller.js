@@ -88,8 +88,8 @@ export function showByRoom(req, res) {
 //Gets a history by room id and nearest date
 export function showByRoomAndDate(req, res) {
   var date = new Date(req.params.date);
-  return HistoryWater.find({"room":req.params.id,"date":{$gte: date, $lt:date}})
-    .sort({"date":1}).limit(1).exec()
+  return HistoryWater.find({room:req.params.id,date:{$gte: date, $lte:date}})
+    .sort({date:1}).limit(1).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
