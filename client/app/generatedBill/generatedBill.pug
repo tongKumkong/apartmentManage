@@ -16,9 +16,9 @@ md-tabs.container(md-dynamic-height)
                     tr
                         td rental
                         td
-                        td {{generatedBillCtrl.info.roomPrice}}
+                        td ฿{{generatedBillCtrl.info.roomPrice}}
                         td 1
-                        td {{generatedBillCtrl.info.roomPrice}}
+                        td ฿{{generatedBillCtrl.info.roomPrice}}
                     tr
                         td 
                             textarea water from {{room.water.start.unit}} to {{room.water.end.unit}}
@@ -27,24 +27,24 @@ md-tabs.container(md-dynamic-height)
                             img(ng-src="data:image/jpg;base64,{{room.water.end.image.data}}")
                         td {{generatedBillCtrl.info.waterPrice}}
                         td 
-                            textarea {{room.water.end.unit - room.water.start.unit }}
+                            textarea ฿{{room.water.end.unit - room.water.start.unit }}
                         td 
-                            textarea {{(room.water.end.unit - room.water.start.unit) * generatedBillCtrl.info.waterPrice}}
+                            textarea ฿{{(room.water.end.unit - room.water.start.unit) * generatedBillCtrl.info.waterPrice}}
                     tr
                         td 
                             textarea electricity from {{room.electric.start.unit}} to {{room.electric.end.unit}}
                         td
                             img(ng-src="data:image/jpg;base64,{{room.electric.start.image.data}}")
                             img(ng-src="data:image/jpg;base64,{{room.electric.end.image.data}}")
-                        td {{generatedBillCtrl.info.electricPrice}}
+                        td ฿{{generatedBillCtrl.info.electricPrice}}
                         td 
-                            textarea {{room.electric.end.unit - room.electric.start.unit }}
+                            textarea ฿{{room.electric.end.unit - room.electric.start.unit }}
                         td 
-                            textarea {{(room.electric.end.unit - room.electric.start.unit) * generatedBillCtrl.info.electricPrice}}
+                            textarea ฿{{(room.electric.end.unit - room.electric.start.unit) * generatedBillCtrl.info.electricPrice}}
                     tr
                         td total
                         td
                         td
                         td
                         td 
-                            textarea {{generatedBillCtrl.info.roomPrice + ((room.electric.end.unit - room.electric.start.unit) * generatedBillCtrl.info.electricPrice) + ((room.water.end.unit - room.water.start.unit) * generatedBillCtrl.info.waterPrice)}}
+                            textarea ฿{{generatedBillCtrl.info.roomPrice + ((room.electric.end.unit - room.electric.start.unit) * generatedBillCtrl.info.electricPrice) + ((room.water.end.unit - room.water.start.unit) * generatedBillCtrl.info.waterPrice)}}
