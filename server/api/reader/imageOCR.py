@@ -51,7 +51,7 @@ ret = requests.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSy
 
 retJson = ret.json()
 
-if retJson['responses'][0]['textAnnotations'][0]['description']:
+if retJson['responses'][0]['textAnnotations']:
     unit = re.findall(r'\b\d+\b', retJson['responses'][0]['textAnnotations'][0]['description'])
     unit = ''.join(unit)
     # print readed number
