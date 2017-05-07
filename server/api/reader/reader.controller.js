@@ -140,11 +140,13 @@ export function saveImage(req, res) {
               }
             })
           }
-          HistoryWater.create({
-            room: RoomWaterReader[0]._id, image: {
-              data: results[0]
-            }
-          })
+          else {
+            HistoryWater.create({
+              room: RoomWaterReader[0]._id, image: {
+                data: results[0]
+              }
+            })
+          }
         }
 
         if (typeof RoomElectricReader[0] != 'undefined') {
@@ -155,11 +157,13 @@ export function saveImage(req, res) {
               }
             })
           }
-          HistoryElectric.create({
-            room: RoomElectricReader[0]._id, image: {
-              data: results[0]
-            }
-          })
+          else {
+            HistoryElectric.create({
+              room: RoomElectricReader[0]._id, image: {
+                data: results[0]
+              }
+            })
+          }
         }
       });
 
